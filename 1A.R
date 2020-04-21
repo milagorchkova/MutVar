@@ -16,10 +16,8 @@ dir()
 data1A <- read.csv("1A.csv")
 names(data1A)[1]<-paste("species") 
 
-#subset data by species
-#Amil <- subset(data1A, species == "Achillea millefolium")
-
 str(data1A)
+
 #each graph has its own scale
 p1 <- ggplot(data=data1A, aes(time))+geom_density()+facet_wrap(~species,scales="free")
 
@@ -39,7 +37,6 @@ p2
 p3
 p4
 bp1
-#geom_point : scatter plot, +geom_smooth is a regression line
 
 #find means and SD of each data
 summary_table <- data1A %>% group_by(species) %>% summarize(n=n(), mean_time <- mean(time, na.rm=TRUE), sd_time <- sd(time, na.rm=TRUE), se_error <- sd_time/sqrt(n))
@@ -47,16 +44,15 @@ view(summary_table)
 
 species_list <- unique(data1A$species)
 species_list
+
 i = 1
-x2 <- length(species_list)
-x2
-#try intializing p as empty data.frame
-p <- vector(mode="list", length=length(unique(data1A$species)))
+
+#initialize empty vectors to do CV equality tests
 SD_vector <-vector(mode='list',length=length(unique(data1A$species)))
 mean_vector <-vector(mode='list',length=length(unique(data1A$species)))
 n_vector <-vector(mode='list',length=length(unique(data1A$species)))
 
-#make a vector for SD and mean of each species group (to calculate one against all variances)
+#make a vectors for SD, mean, and n of each species group (to calculate one against all variances)
 for (i in 1:(length(unique(data1A$species))))
      {
         #vector with standard deviation values for each species
@@ -82,15 +78,17 @@ for (i in 1:(length(unique(data1A$species))))
   
 }
 
+#output vectors to test
 n_vector
 SD_vector
 mean_vector
 
 
-#SD and mean of all values in dataframe
+#SD and mean of ALL values in dataframe (sample population)
 SD_total <- sd(data1A$time, na.rm=TRUE)
 mean_total <-mean(data1A$time)
 n_total <-length(data1A$time)
+
 SD_total
 mean_total
 n_total
@@ -98,7 +96,7 @@ n_total
 
 #x= measurements, y = grouping variables, seed= keeps it consistent, any integer
 #this gives us a test statistic to compare how similar variance is between
-  #every group in the dataframe.
+  #comparison of CV between every group in the dataframe. (intraspecfic to intraspecific)
 x_vector<-as.vector(data1A$time)
 grouping_vector<-as.vector(data1A$species)
 
@@ -106,7 +104,7 @@ result = asymptotic_test(x_vector, grouping_vector, 1)
 str(result)
 
 #create vectors needed for test of equality: THIS IS WHEN ONLY SUMMARY STATISTICS AVAILABLE
-  #OR to compare "one against all"
+  #OR to compare "one against all" (i.e. intraspecific vs interspecific; tested one by one)
 #need:
 #k = value that is # groups
 #n-vector with number measurements per group
