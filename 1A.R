@@ -4,6 +4,8 @@ install.packages("data.table")
 install.packages("dplyr")
 install.packages("gridExtra")
 install.packages("tidyverse")
+install.packages("knitr")
+library(knitr)
 library(ggplot2)
 library(cvequality)
 library(data.table)
@@ -48,9 +50,9 @@ species_list
 i = 1
 
 #initialize empty vectors to do CV equality tests
-SD_vector <-vector(mode='list',length=length(unique(data1A$species)))
-mean_vector <-vector(mode='list',length=length(unique(data1A$species)))
-n_vector <-vector(mode='list',length=length(unique(data1A$species)))
+SD_vector <-vector(mode='numeric',length=length(unique(data1A$species)))
+mean_vector <-vector(mode='numeric',length=length(unique(data1A$species)))
+n_vector <-vector(mode='numeric',length=length(unique(data1A$species)))
 
 #make a vectors for SD, mean, and n of each species group (to calculate one against all variances)
 for (i in 1:(length(unique(data1A$species))))
@@ -130,5 +132,47 @@ for (i in 1:(length(unique(data1A$species))))
   
   one.v.all[[i]] <- asymptotic_test2(2, n = n_tmp,s = s_tmp, x = x_tmp,1)
 }
-#output list of test statistics and p-valukes
+#output list of test statistics and p-values
 one.v.all
+
+
+#split this list into a vector of test stats and a vector of p-values
+one.v.all <- unlist(one.v.all)
+str(one.v.all)
+
+test_statistics <- vector(mode='numeric',length=length(unique(data1A$species)))
+p_values <- vector(mode='numeric',length=length(unique(data1A$species)))
+
+for  (i in 1:(length(unique(data1A$species))))
+{
+test_statistics[[i]] <- one.v.all[[(i+(i-1))]]
+p_values[[i]] <- one.v.all[[(i+i)]]
+
+}
+
+test_statistics
+p_values
+
+p_over_five <- p_values > 0.05
+p_over_five
+
+# if p greater than 5 that means variances are SAME as total. (recall we are looking for those that are same or greater than)
+
+##if p is less than five, that means variances are different
+#next step is to figure out if var is greater or less than total
+#compare outputs
+CV_vector <- vector(mode='numeric',length=length(unique(data1A$species)))
+CV_vector <- (SD_vector/mean_vector)*100
+CV_vector
+
+CV_total <- (SD_total/mean_total)*100
+CV_total
+
+CV_greater <- CV_vector > CV_total
+CV_greater
+
+cv_results <-data.frame(test_statistics,p_values,p_over_five,CV_greater)         
+view(cv_results)      
+
+#then, we have to merge results. we only care about SD_intra>SD_total if its SIGNIFICANT
+#, so we are looking for number that are FALSE-TRUE, TRUE-(anything)
