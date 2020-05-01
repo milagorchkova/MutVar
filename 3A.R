@@ -30,8 +30,8 @@ p2 <- ggplot(data=data3A, aes(leaves))+geom_density(fill="blue",colour=NA,alpha=
 #all variations overlaid 
 p3 <- ggplot(data=data3A, aes(leaves,colour=species))+geom_density(adjust=3) 
 
-#all overlapping variations with ALL VARIATION superimposed. all variation is not smoothed like the rest
-p4 <- ggplot(data=data3A)+geom_density(aes(leaves,colour=species),adjust=3) + geom_density(aes(leaves),size=2,adjust=3)
+#all overlapping variations with ALL VARIATION superimposed. all variation is smoothed like the rest
+p4 <- ggplot(data=data3A)+geom_density(aes(leaves,colour=species),adjust=3) + geom_density(aes(leaves),size=2,adjust=3) + ggtitle(str_wrap("Effect (New Leaves) of Ant Mutualists on H. physophora (3A)",width=42))
 p4.1 <- ggplot(data=data3A)+geom_density(aes((fruits/flowers),colour=species),adjust=3) + geom_density(aes((fruits/flowers)),size=2,adjust=3)
 
 bp1 <- ggplot(data=data3A)+geom_boxplot(aes(leaves,species)) +geom_boxplot(aes(leaves),size=2,alpha=0.2)+ylab('SPECIES')
@@ -41,6 +41,7 @@ p2
 p3
 p4
 p4.1
+#p4.1 not used due to non-normal distribution
 
 bp1
 
