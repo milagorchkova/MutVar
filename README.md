@@ -7,7 +7,7 @@ provide natural pest control” (Rijn 2016) as an example. The data was
 sourced as raw data from datadryad.org, and is summarized in the
 following table:
 
-    ##                       species  n mean_time <- mean(time, na.rm = TRUE)
+    ##                       species  N                              MEAN
     ## 1              0water control 27                              1.925926
     ## 2        Achillea millefolium 19                              9.815789
     ## 3                  Ammi majus 23                             11.934783
@@ -40,7 +40,7 @@ following table:
     ## 30 Tripleurospermum maritimum 14                              3.642857
     ## 31               Vicia cracca 16                              2.906250
     ## 32              ViciaS sativa 36                             10.305556
-    ##    sd_time <- sd(time, na.rm = TRUE) se_error <- sd_time/sqrt(n)
+    ##                            SD                          SE
     ## 1                          0.8627294                   0.9369764
     ## 2                          5.6154809                   1.1169500
     ## 3                          6.0326844                   1.0151883
@@ -78,7 +78,7 @@ This is the principle plot that will be used to summarize data in this
 meta-analysis, in cases where raw data is available . This plot shows
 intraspecific variations, as well as the interspecific or overall
 variation (shown in black).
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](https://raw.githubusercontent.com/milagorchkova/MutVar/master/plot.png)<!-- -->
 
 The R script cvequality was used to do analysis of equality of
 variances. It was done both to analyze equality of all variances to each
