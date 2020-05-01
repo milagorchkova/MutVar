@@ -21,7 +21,7 @@ data8A <- na.omit(data8A)
 names(data8A)[1]<-paste("strain") 
 
 str(data8A)
-
+ 
 #each graph has its own scale
 p1 <- ggplot(data=data8A, aes(mass))+geom_density()+facet_wrap(~strain,scales="free")
 
