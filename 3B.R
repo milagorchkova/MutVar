@@ -29,8 +29,8 @@ p1 <- ggplot(data=data3B, aes(herbivory))+geom_density()+facet_wrap(~species,sca
 p2 <- ggplot(data=data3B, aes(herbivory))+geom_density(fill="blue",colour=NA,alpha=.2,adjust=3)+geom_line(stat="density",adjust=3)+facet_wrap(~species,scales="fixed")
 #all variations overlaid 
 p3 <- ggplot(data=data3B, aes(herbivory,colour=species))+geom_density(adjust=3) 
-#all overlapping variations with ALL VARIATION superimposed. all variation is not smoothed like the rest
-p4 <- ggplot(data=data3B)+geom_density(aes(herbivory,colour=species),adjust=3) + geom_density(aes(herbivory),size=2,adjust=3)
+#all overlapping variations with ALL VARIATION superimposed. all variation is smoothed like the rest
+p4 <- ggplot(data=data3B)+geom_density(aes(herbivory,colour=species),adjust=3) + geom_density(aes(herbivory),size=2,adjust=3) + ggtitle(str_wrap("Effect (Herbivory  Levels) of Ant Mutualists on H. physophora (3B)",width=35))
 
 bp1 <- ggplot(data=data3B)+geom_boxplot(aes(herbivory,species)) +geom_boxplot(aes(herbivory),size=2,alpha=0.2)+ylab('SPECIES')
 #display plots
