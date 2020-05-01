@@ -30,7 +30,7 @@ p2 <- ggplot(data=data5A, aes(SDE))+geom_density(fill="blue",colour=NA,alpha=.2,
 p3 <- ggplot(data=data5A, aes(SDE,colour=species))+geom_density(adjust=3) 
 
 #all overlapping variations with ALL VARIATION superimposed. all variation is smoothed like the rest
-p4 <- ggplot(data=data5A) +geom_density(aes(SDE,colour=species),adjust=3) + geom_density(aes(SDE),size=2,adjust=3) +ggtitle("Proportion Seeds Intact/Destroyed (5A)")
+p4 <- ggplot(data=data5A) +geom_density(aes(SDE,colour=species),adjust=3) + geom_density(aes(SDE),size=2,adjust=3) +ggtitle(str_wrap("Seed Dispersal Effectiveness of Fish for Cecropia pachystachya (5A)",width=42))
 
 bp1 <- ggplot(data=data5A)+geom_boxplot(aes(SDE,species)) +geom_boxplot(aes(SDE),size=2,alpha=0.2)+ylab('SPECIES')+ggtitle("(5A)")
 #display plots
