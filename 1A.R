@@ -23,14 +23,14 @@ str(data1A)
 #each graph has its own scale
 p1 <- ggplot(data=data1A, aes(time))+geom_density()+facet_wrap(~species,scales="free")
 
-#each graph has same scale. adjust sets smoothing of the variation, also plots are coloured  in
+#each graph has same scale. adjust sets smoothing of the variation, also plots have coloured integral
 p2 <- ggplot(data=data1A, aes(time))+geom_density(fill="blue",colour=NA,alpha=.2,adjust=3)+geom_line(stat="density",adjust=3)+facet_wrap(~species,scales="fixed")
 
 #all variations overlaid 
 p3 <- ggplot(data=data1A, aes(time,colour=species))+geom_density(adjust=3) 
 
-#all overlapping variations with ALL VARIATION superimposed. all variation is not smoothed like the rest
-p4 <- ggplot(data=data1A)+geom_density(aes(time,colour=species),adjust=3) + geom_density(aes(time),size=2,adjust=3)
+#all overlapping variations with ALL VARIATION superimposed. all variation is smoothed like the rest
+p4 <- ggplot(data=data1A)+geom_density(aes(time,colour=species),adjust=3) + geom_density(aes(time),size=2,adjust=3) +ggtitle("EFN Effect on Hoverfly Survival (1A)")
 
 bp1 <- ggplot(data=data1A)+geom_boxplot(aes(time,species)) +geom_boxplot(aes(time),size=2,alpha=0.2)+ylab('SPECIES')
 #display plots
@@ -102,6 +102,7 @@ n_total
 x_vector<-as.vector(data1A$time)
 grouping_vector<-as.vector(data1A$species)
 
+#all.v.all test
 result = asymptotic_test(x_vector, grouping_vector, 1)
 str(result)
 
